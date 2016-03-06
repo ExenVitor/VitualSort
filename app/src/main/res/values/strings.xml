@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">VitualSort</string>
+
+    <string name="startSorting">Sort!</string>
+    <string name="restore">Restore</string>
+    <string name="roll">Roll</string>
+</resources>
