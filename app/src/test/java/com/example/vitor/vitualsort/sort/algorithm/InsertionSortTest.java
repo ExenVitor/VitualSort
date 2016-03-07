@@ -29,6 +29,6 @@ public class InsertionSortTest {
         });
         ArrayList<Integer> result = insertionSort.beginSort(srcArray);
         System.out.println("Result: " + result.toString());
-        Assert.assertTrue("Sorting algorithm incorrect！！", TestUtils.verifySortingArray(result, float));
+        Assert.assertTrue("Sorting algorithm incorrect！！", TestUtils.verifySortingArray(result, false));
     }
 }
