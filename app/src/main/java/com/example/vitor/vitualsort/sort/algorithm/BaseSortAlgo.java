@@ -13,7 +13,7 @@ public abstract class BaseSortAlgo {
     protected ISortAlgoCallback mCallback;
     protected ArrayList<Integer> mTmpArray;
 
-    protected BaseSortAlgo(@Nullable ISortAlgoCallback callback){
+    public BaseSortAlgo(@Nullable ISortAlgoCallback callback){
         mCallback = callback;
     }
 
@@ -24,9 +24,7 @@ public abstract class BaseSortAlgo {
             return new ArrayList<>(srcArray);
         }
 
-        if(mCallback != null){
-            mTmpArray = new ArrayList<>(srcArray);
-        }
+        mTmpArray = new ArrayList<>(srcArray);
 
         ArrayList<Integer> result = internalStart(mTmpArray);
         return result;

@@ -4,8 +4,9 @@ import android.os.AsyncTask;
 
 import com.example.vitor.vitualsort.sort.algorithm.BaseSortAlgo;
 import com.example.vitor.vitualsort.sort.algorithm.ISortAlgoCallback;
-import com.example.vitor.vitualsort.sort.algorithm.InsertionSort;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,6 +19,8 @@ public class SortWorker {
     protected ArrayList<Integer> mDstArray;
 
     protected ISortWorkerListener mListener;
+
+    private Class<? extends BaseSortAlgo> mAlgoClazz;
 
     private SortTask mSortTask;
 
@@ -52,11 +55,15 @@ public class SortWorker {
         }
     }
 
+    public void setSortAlgorithm(Class<? extends BaseSortAlgo> algoClazz){
+        mAlgoClazz = algoClazz;
+    }
+
     private class SortTask extends AsyncTask<Void, Integer, ArrayList<Integer>>
             implements ISortAlgoCallback{
         private BaseSortAlgo mSortAlgo;
         public SortTask(){
-            mSortAlgo = new InsertionSort(this);
+
         }
 
         @Override
@@ -72,6 +79,19 @@ public class SortWorker {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            try {
+                Constructor<? extends BaseSortAlgo> constructor =
+                        mAlgoClazz.getConstructor(ISortAlgoCallback.class);
+                mSortAlgo = constructor.newInstance(this);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
             if(mListener != null){
                 mListener.onStarted(SortWorker.this);
             }

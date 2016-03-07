@@ -4,4 +4,7 @@
     <string name="startSorting">Sort!</string>
     <string name="restore">Restore</string>
     <string name="roll">Roll</string>
+
+    <string name="bubbleSort">Bubble Sort</string>
+    <string name="insertionSort">Insertion Sort</string>
 </resources>
